@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://dyww6xgy2gqcf"]
+
+[ext_resource type="ArrayMesh" uid="uid://clvo5jyc18uh3" path="res://models/meshes/stone.res" id="1_j4q8c"]
+[ext_resource type="ArrayMesh" uid="uid://dsr5fnwy15n0w" path="res://models/meshes/diamond.res" id="2_w0mux"]
+[ext_resource type="ArrayMesh" uid="uid://wnege3h8luvc" path="res://models/meshes/iron.res" id="3_d1fq2"]
+[ext_resource type="ArrayMesh" uid="uid://ble5vgvlj56xs" path="res://models/meshes/gold.res" id="4_scg67"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j4q8c"]
+
+[node name="StoneCave" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = ExtResource("1_j4q8c")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_j4q8c")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0133923, 0, -0.0329533)
+visible = false
+mesh = ExtResource("2_w0mux")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0133923, 0, -0.0329533)
+visible = false
+mesh = ExtResource("3_d1fq2")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0133923, 0, -0.0329533)
+visible = false
+mesh = ExtResource("4_scg67")

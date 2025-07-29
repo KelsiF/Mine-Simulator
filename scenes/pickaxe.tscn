@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://vd3quarcinge"]
+
+[sub_resource type="GDScript" id="GDScript_gw7q8"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	$model.mesh = load(\"res://models/meshes/pickaxe/wooden_pickaxe.res\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Pickaxe" type="Node3D"]
+script = SubResource("GDScript_gw7q8")
+
+[node name="model" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.277054, 0)

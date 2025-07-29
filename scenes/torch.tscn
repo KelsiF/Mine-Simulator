@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://cge7juo40kieg"]
+
+[ext_resource type="ArrayMesh" uid="uid://dpwkm5jhipg6p" path="res://models/meshes/torch.res" id="1_d4v33"]
+
+[node name="Torch" type="Node3D"]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(0.999995, 0.00290048, 0.00112199, -0.00289673, 0.99999, -0.00333016, -0.00113163, 0.0033269, 0.999994, 0, 0, 0)
+mesh = ExtResource("1_d4v33")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00505589, 1.13759, 0.000456978)
+light_color = Color(1, 0.643137, 0.0823529, 1)
+light_energy = 2.5
+shadow_enabled = true
+shadow_normal_bias = 9.63
+distance_fade_begin = 92.51
+distance_fade_length = 430.1
+omni_range = 10.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.573059, -1.15799, -6.80713)
+visible = false
+size = Vector3(6.9574, 1, 17.9932)

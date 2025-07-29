@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqsw57jh87au3"]
+[gd_scene load_steps=7 format=3 uid="uid://cqsw57jh87au3"]
 
 [ext_resource type="Script" uid="uid://dg7t8hssp7dsu" path="res://scripts/block.gd" id="1_8r6n6"]
+[ext_resource type="ArrayMesh" uid="uid://ccsggeku3qc74" path="res://models/meshes/coal.res" id="2_cgrg5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cgrg5"]
+size = Vector3(2, 2, 2)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8r6n6"]
 radius = 5.0
@@ -21,17 +23,19 @@ func _process(delta: float) -> void:
 	pass
 "
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_8r6n6"]
+
 [node name="Block" type="StaticBody3D"]
 script = ExtResource("1_8r6n6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="collisionClick" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="collisionClick"]
 shape = SubResource("BoxShape3D_cgrg5")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="radius" type="Area3D" parent="."]
 
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="radius"]
 shape = SubResource("SphereShape3D_8r6n6")
 
 [node name="Label3D" type="Label3D" parent="."]
@@ -40,7 +44,13 @@ billboard = 1
 text = "5/5"
 script = SubResource("GDScript_8r6n6")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_cgrg5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_8r6n6")
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
-[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
+[connection signal="input_event" from="collisionClick" to="." method="_on_collision_input_event"]
+[connection signal="body_entered" from="radius" to="." method="_on_radius_body_entered"]
+[connection signal="body_exited" from="radius" to="." method="_on_radius_body_exited"]
