@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://o4gpmojt7hos"]
+[gd_scene load_steps=23 format=3 uid="uid://o4gpmojt7hos"]
 
 [ext_resource type="Script" uid="uid://c3wttqrmul1gx" path="res://scripts/main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://boqw8x8lby4na" path="res://scenes/player.tscn" id="1_ig7tw"]
@@ -24,9 +24,17 @@ sky_material = SubResource("ProceduralSkyMaterial_efxa6")
 background_mode = 2
 sky = SubResource("Sky_dg77c")
 ambient_light_source = 2
-ambient_light_color = Color(0.401968, 0.401968, 0.401968, 1)
+ambient_light_color = Color(0.412152, 0.412152, 0.412152, 1)
+ambient_light_energy = 1.5
 tonemap_mode = 2
 glow_enabled = true
+glow_bloom = 0.12
+glow_hdr_threshold = 4.0
+fog_density = 0.0
+fog_height_density = 9.2754
+adjustment_enabled = true
+adjustment_brightness = 0.9
+adjustment_contrast = 1.25
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ig7tw"]
 
@@ -43,6 +51,11 @@ size = Vector3(15.8822, 6.32458, 0.500488)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dg77c"]
 radius = 25.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dg77c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ycdy4"]
+size = Vector3(1.27105, 2.27667, 1.75695)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_h2yge")
@@ -62,7 +75,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.94763, -0.406982, 0.86378)
 shape = SubResource("BoxShape3D_0xm2m")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-transform = Transform3D(0.0443865, 0, -0.999014, 0, 1, 0, 0.999014, 0, 0.0443865, -6.7, 4.2, -3.8)
+transform = Transform3D(-0.999014, 0, -0.0443865, 0, 1, 0, 0.0443865, 0, -0.999014, -6.7, 4.2, -3.8)
 
 [node name="Block" parent="." instance=ExtResource("2_0xm2m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.432193, 14.6802, 15.15)
@@ -80,14 +93,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.52492, 2.01563, 22.971)
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.18778, 4.79806, 28.562)
-visible = false
 amount = 250
+lifetime = 0.01
 randomness = 0.89
 lifetime_randomness = 1.0
+fixed_fps = 60
 mesh = ExtResource("6_7mycd")
 emission_shape = 3
 emission_box_extents = Vector3(7.99, 3.415, 0.5)
-angular_velocity_max = 5.0
 linear_accel_max = 13.7
 radial_accel_min = -25.0
 angle_min = -720.0
@@ -119,75 +132,91 @@ shape = SubResource("SphereShape3D_dg77c")
 [node name="Block2" parent="." instance=ExtResource("2_0xm2m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.7403, 1.65925, -77.1455)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.0624247, 0.99805, 0, -0.99805, -0.0624247, 3.73394, 30.4327, 2.48966)
-visible = false
+[node name="LightingSpawn" type="Node3D" parent="."]
 
-[node name="Lighting" type="Node3D" parent="."]
-
-[node name="Torch" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(1, 0, 0, 0, 0.695461, 0.718563, 0, -0.718563, 0.695461, 5.92624, 4.45523, 25.5985)
 
-[node name="Torch13" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch13" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(1, 0, 0, 0, 0.695461, 0.718563, 0, -0.718563, 0.695461, -14.6269, 4.45523, 25.5985)
 
-[node name="Torch14" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch14" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(1, 0, 0, 0, 0.695461, 0.718563, 0, -0.718563, 0.695461, -26.2402, 4.45523, 25.5985)
 
-[node name="Torch2" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch2" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(-4.37114e-08, -0.718563, 0.695461, 0, 0.695461, 0.718563, -1, 3.14094e-08, -3.03996e-08, 16.497, 4.45523, 17.5321)
 
-[node name="Torch15" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch15" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(-4.37114e-08, -0.718563, 0.695461, 0, 0.695461, 0.718563, -1, 3.14094e-08, -3.03996e-08, -5.85516, 1.9808, 37.1853)
 
-[node name="Torch3" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch3" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(-4.37114e-08, -0.718563, 0.695461, 0, 0.695461, 0.718563, -1, 3.14094e-08, -3.03996e-08, 16.497, 4.45523, 2.87096)
 
-[node name="Torch4" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch4" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(-4.37114e-08, -0.718563, 0.695461, 0, 0.695461, 0.718563, -1, 3.14094e-08, -3.03996e-08, 16.497, 4.45523, -12.2019)
 
-[node name="Torch5" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch5" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(-4.37114e-08, -0.718563, 0.695461, 0, 0.695461, 0.718563, -1, 3.14094e-08, -3.03996e-08, 16.497, 6.10738, -21.5304)
 
-[node name="Torch6" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch6" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(-1, 8.35451e-08, -3.93843e-08, -3.07906e-15, 0.695461, 0.718563, 8.74228e-08, 0.718563, -0.695461, 3.39542, 6.10738, -23.1623)
 
-[node name="Torch7" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch7" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(-1, 8.35451e-08, -3.93843e-08, -3.07906e-15, 0.695461, 0.718563, 8.74228e-08, 0.718563, -0.695461, -9.01303, 7.08829, -23.1623)
 
-[node name="Torch8" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch8" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(-1, 8.35451e-08, -3.93843e-08, -3.07906e-15, 0.695461, 0.718563, 8.74228e-08, 0.718563, -0.695461, -20.501, 7.08829, -23.1623)
 
-[node name="Torch9" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch9" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(7.45058e-08, 0.718563, -0.695461, -7.71342e-09, 0.695461, 0.718563, 1, -8.9407e-08, 2.98023e-08, -30.4807, 5.56713, -21.7159)
 
-[node name="Torch10" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch10" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(7.45058e-08, 0.718563, -0.695461, -7.71342e-09, 0.695461, 0.718563, 1, -8.9407e-08, 2.98023e-08, -30.4807, 5.56713, -8.42314)
 
-[node name="Torch11" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch11" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(7.45058e-08, 0.718563, -0.695461, -7.71342e-09, 0.695461, 0.718563, 1, -8.9407e-08, 2.98023e-08, -30.4807, 7.10061, 5.95389)
 
-[node name="Torch12" parent="Lighting" instance=ExtResource("12_dg77c")]
+[node name="Torch12" parent="LightingSpawn" instance=ExtResource("12_dg77c")]
 transform = Transform3D(7.45058e-08, 0.718563, -0.695461, -7.71342e-09, 0.695461, 0.718563, 1, -8.9407e-08, 2.98023e-08, -30.4807, 7.10061, 19.2099)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Lighting"]
+[node name="SpotLight3D" type="SpotLight3D" parent="LightingSpawn"]
 transform = Transform3D(1, 0, 0, 0, -0.652191, 0.758055, 0, -0.758055, -0.652191, -2.35081, 16.748, -6.66482)
 light_color = Color(0.196078, 0.466667, 0.560784, 1)
-light_energy = 1.5
+light_bake_mode = 1
 shadow_enabled = true
 spot_range = 4096.0
-spot_angle = 69.66
 
 [node name="ShopMeshes" type="Node3D" parent="."]
 
 [node name="medieval_market_marketstall_red" parent="ShopMeshes" instance=ExtResource("8_dg77c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.4436, 1.7409, 24.7919)
 
+[node name="StaticBody3D" type="StaticBody3D" parent="ShopMeshes/medieval_market_marketstall_red"]
+physics_material_override = SubResource("PhysicsMaterial_dg77c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShopMeshes/medieval_market_marketstall_red/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.136322, 0.794678, 0.324219)
+shape = SubResource("BoxShape3D_ycdy4")
+
 [node name="medieval_market_table" parent="ShopMeshes" instance=ExtResource("9_ycdy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.4084, 0.966212, 22.3881)
 
+[node name="StaticBody3D" type="StaticBody3D" parent="ShopMeshes/medieval_market_table"]
+physics_material_override = SubResource("PhysicsMaterial_dg77c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShopMeshes/medieval_market_table/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0257492, 0.255615, 0.0291443)
+shape = SubResource("BoxShape3D_ycdy4")
+
 [node name="medieval_market_wagon_red" parent="ShopMeshes" instance=ExtResource("10_w48qg")]
 transform = Transform3D(-0.457579, 0, 0.889169, 0, 1, 0, -0.889169, 0, -0.457579, -25.0309, 1.5, 22.4211)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ShopMeshes/medieval_market_wagon_red"]
+physics_material_override = SubResource("PhysicsMaterial_dg77c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShopMeshes/medieval_market_wagon_red/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0203457, 0.652313, -0.477776)
+shape = SubResource("BoxShape3D_ycdy4")
 
 [node name="medieval_market_open_chest" parent="ShopMeshes" instance=ExtResource("11_vivmo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.0639, 1.00832, 21.8376)
@@ -195,5 +224,54 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.0639, 1.00832, 21.8376)
 [node name="medieval_market_bag" parent="ShopMeshes" instance=ExtResource("12_2cqfq")]
 transform = Transform3D(0.62, 0, 0, 0, 0.62, 0, 0, 0, 0.62, -20.7971, 1.92677, 22.2404)
 
+[node name="LightingMine" type="Node3D" parent="."]
+
+[node name="Torch" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(1, 0, 0, 0, 0.695461, 0.718563, 0, -0.718563, 0.695461, 6.40426, 6.46586, -40.6198)
+
+[node name="Torch2" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(1, 0, 0, 0, 0.695461, 0.718563, 0, -0.718563, 0.695461, -9.88111, 6.46586, -40.6198)
+
+[node name="Torch3" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(1, 0, 0, 0, 0.695461, 0.718563, 0, -0.718563, 0.695461, -27.7443, 6.46586, -40.6198)
+
+[node name="Torch4" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(1, 0, 0, 0, 0.695461, 0.718563, 0, -0.718563, 0.695461, -40.528, 6.46586, -40.6198)
+
+[node name="Torch5" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(-4.37114e-08, 0.718563, -0.695461, 0, 0.695461, 0.718563, 1, 3.14094e-08, -3.03996e-08, -42.3543, 4.22641, -50.4049)
+
+[node name="Torch6" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(-4.37114e-08, 0.718563, -0.695461, 0, 0.695461, 0.718563, 1, 3.14094e-08, -3.03996e-08, -42.3543, 3.39075, -64.6102)
+
+[node name="Torch7" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(-4.37114e-08, 0.718563, -0.695461, 0, 0.695461, 0.718563, 1, 3.14094e-08, -3.03996e-08, -42.3543, 4.89363, -77.1436)
+
+[node name="Torch8" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(-1, -1.49012e-08, 1.49012e-08, -6.68e-09, 0.695461, 0.718563, -1.49012e-08, 0.718563, -0.695461, -36.2346, 10.7177, -86.6288)
+
+[node name="Torch9" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(-1, -1.49012e-08, 1.49012e-08, -6.68e-09, 0.695461, 0.718563, -1.49012e-08, 0.718563, -0.695461, -15.7323, 5.68576, -86.6223)
+
+[node name="Torch10" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(-1, -1.49012e-08, 1.49012e-08, -6.68e-09, 0.695461, 0.718563, -1.49012e-08, 0.718563, -0.695461, -1.1541, 8.55496, -86.6288)
+
+[node name="Torch11" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(-1, -1.49012e-08, 1.49012e-08, -6.68e-09, 0.695461, 0.718563, -1.49012e-08, 0.718563, -0.695461, 16.1863, 6.37651, -86.6387)
+
+[node name="Torch12" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(5.86125e-08, -0.718563, 0.695461, -6.68e-09, 0.695461, 0.718563, -1, -6.70369e-08, 2.38859e-08, 28.3913, 4.98583, -83.8059)
+
+[node name="Torch13" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(5.86125e-08, -0.718563, 0.695461, -6.68e-09, 0.695461, 0.718563, -1, -6.70369e-08, 2.38859e-08, 28.3913, 4.84799, -68.4829)
+
+[node name="Torch14" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(5.86125e-08, -0.718563, 0.695461, -6.68e-09, 0.695461, 0.718563, -1, -6.70369e-08, 2.38859e-08, 28.3913, 4.34923, -53.352)
+
+[node name="Torch15" parent="LightingMine" instance=ExtResource("12_dg77c")]
+transform = Transform3D(1, 4.47035e-08, -1.49012e-08, -5.6466e-09, 0.695461, 0.718563, 1.49012e-08, -0.718563, 0.695461, 25.9802, 6.50027, -40.4649)
+
+[connection signal="open_playmenu" from="." to="Player" method="_on_node_3d_open_playmenu"]
+[connection signal="reward_ore" from="." to="Player" method="_on_node_3d_reward_ore"]
 [connection signal="play" from="miner_npc" to="." method="_on_miner_npc_play"]
 [connection signal="body_entered" from="1cave" to="Player" method="_on_cave_body_entered"]

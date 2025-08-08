@@ -20,3 +20,11 @@ func _on_player_change_pickaxe(current_item) -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	anim_end.emit()
+
+
+
+func _on_animation_player_animation_started(anim_name: StringName) -> void:
+	if anim_name == "mine":
+		$AnimationPlayer.speed_scale = 1.25
+	else:
+		$AnimationPlayer.speed_scale = 1.0

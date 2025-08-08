@@ -1,13 +1,98 @@
-[gd_scene load_steps=5 format=3 uid="uid://boqw8x8lby4na"]
+[gd_scene load_steps=25 format=3 uid="uid://boqw8x8lby4na"]
 
 [ext_resource type="Script" uid="uid://dtdr5u0gqyfpt" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://de4bp8d5ki85v" path="res://scenes/player_model.tscn" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://bepdl6xlw26ma" path="res://textures/stone_ds.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://don0le0p8xd7s" path="res://textures/money.png" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://b33x2oko0dvrd" path="res://textures/gui_buttons/shop_ico.png" id="4_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://du55y3vckh6xc" path="res://textures/gui_buttons/shop_ico_pressed.png" id="5_d2wvv"]
+[ext_resource type="PackedScene" uid="uid://clfrimaqfso1f" path="res://scenes/shop_gui.tscn" id="5_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://cli7ilvwqgt71" path="res://textures/gui_buttons/shop_ico_hover.png" id="6_3v2ag"]
+[ext_resource type="PackedScene" uid="uid://db3wdnwnkha23" path="res://scenes/gui/play_menu.tscn" id="7_fjrip"]
+[ext_resource type="Texture2D" uid="uid://6ofp65tic8ps" path="res://textures/gui_buttons/play_ico.png" id="8_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://b75xf5kmkqm3h" path="res://textures/gui_buttons/play_ico_press.png" id="9_jej6c"]
+[ext_resource type="Texture2D" uid="uid://dcojmsrvoh26s" path="res://textures/gui_buttons/play_ico_hover.png" id="10_f1ej7"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_3vyb7"]
 height = 1.98584
 
+[sub_resource type="GDScript" id="GDScript_dqkch"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fjrip"]
+
 [sub_resource type="LabelSettings" id="LabelSettings_3vyb7"]
 font_size = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3v2ag"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jej6c"]
+bg_color = Color(0.366128, 0.49092, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f1ej7"]
+bg_color = Color(0.274666, 0.37971, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oprun"]
+bg_color = Color(0.225648, 0.292948, 0.999996, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Theme_a8ls1"]
+Button/styles/focus = SubResource("StyleBoxEmpty_3v2ag")
+Button/styles/hover = SubResource("StyleBoxFlat_jej6c")
+Button/styles/normal = SubResource("StyleBoxFlat_f1ej7")
+Button/styles/pressed = SubResource("StyleBoxFlat_oprun")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur7pv"]
+bg_color = Color(0.0470588, 0.0666667, 0.0784314, 0.541176)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_dqkch"]
+font_size = 36
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oprun"]
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_3vyb7")
@@ -24,22 +109,146 @@ shape = SubResource("CylinderShape3D_3vyb7")
 [node name="Camera3D" type="Camera3D" parent="camera_mount"]
 transform = Transform3D(1, 0, 0, 0, 0.93185, 0.362845, 0, -0.362845, 0.93185, 0.00823605, 1.39819, 2.46568)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-follow_viewport_enabled = true
+[node name="Hud" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = SubResource("GDScript_dqkch")
 
-[node name="Label" type="Label" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Hud/Control"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 319.0
+offset_right = 38.0
+offset_bottom = 351.0
+scale = Vector2(3.47, 3.47)
+tooltip_text = "Магазин"
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fjrip")
+
+[node name="Shop" type="TextureButton" parent="Hud/Control/PanelContainer"]
+texture_filter = 1
+layout_mode = 2
+texture_normal = ExtResource("4_y4r1p")
+texture_pressed = ExtResource("5_d2wvv")
+texture_hover = ExtResource("6_3v2ag")
+
+[node name="Label" type="Label" parent="Hud"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 262.0
+offset_bottom = 100.0
 text = "v. 0.1 dev
 wooden_pickaxe"
 label_settings = SubResource("LabelSettings_3vyb7")
 
-[node name="Button" type="Button" parent="CanvasLayer"]
+[node name="toSpawn" type="Button" parent="Hud"]
+layout_mode = 0
 offset_top = 533.0
-offset_right = 267.0
+offset_right = 132.0
 offset_bottom = 646.0
-text = "TO SPAWN"
+theme = SubResource("Theme_a8ls1")
+text = "НА СПАВН"
+
+[node name="block_panel" type="PanelContainer" parent="Hud"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.037
+anchor_right = 0.035
+anchor_bottom = 0.062
+offset_left = 540.0
+offset_top = 81.0
+offset_right = 561.0
+offset_bottom = 136.8
+theme_override_styles/panel = SubResource("StyleBoxFlat_ur7pv")
+
+[node name="Label" type="Label" parent="Hud/block_panel"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "0"
+label_settings = SubResource("LabelSettings_dqkch")
+vertical_alignment = 1
+
+[node name="blocks" type="Node2D" parent="Hud/block_panel"]
+position = Vector2(-348, -24)
+
+[node name="Sprite2D" type="Sprite2D" parent="Hud/block_panel/blocks"]
+texture_filter = 1
+position = Vector2(310, 52)
+scale = Vector2(0.505208, 0.505208)
+texture = ExtResource("3_qhqgy")
+
+[node name="money_panel" type="PanelContainer" parent="Hud"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.035
+anchor_bottom = 0.062
+offset_left = 538.0
+offset_right = 522.68
+offset_bottom = 33.824
+theme_override_styles/panel = SubResource("StyleBoxFlat_ur7pv")
+
+[node name="money" type="Node2D" parent="Hud/money_panel"]
+position = Vector2(-847, -20)
+
+[node name="Sprite2D" type="TextureRect" parent="Hud/money_panel/money"]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+offset_left = 780.0
+offset_top = 25.0
+offset_right = 844.0
+offset_bottom = 89.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("4_dqkch")
+
+[node name="Label" type="Label" parent="Hud/money_panel"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+text = "0"
+label_settings = SubResource("LabelSettings_dqkch")
+
+[node name="PanelContainer" type="PanelContainer" parent="Hud"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 430.0
+offset_right = 39.0
+offset_bottom = 462.0
+scale = Vector2(3.47, 3.47)
+tooltip_text = "ИГРАТЬ"
+theme_override_styles/panel = SubResource("StyleBoxEmpty_oprun")
+
+[node name="PlayButton" type="TextureButton" parent="Hud/PanelContainer"]
+texture_filter = 1
+layout_mode = 2
+texture_normal = ExtResource("8_3v2ag")
+texture_pressed = ExtResource("9_jej6c")
+texture_hover = ExtResource("10_f1ej7")
+stretch_mode = 0
+metadata/_edit_lock_ = true
+
+[node name="ShopGui" parent="." instance=ExtResource("5_qlg0r")]
+visible = false
+
+[node name="PlayMenu" parent="." instance=ExtResource("7_fjrip")]
+visible = false
+offset_left = 40.0
+offset_top = 72.0
+offset_right = 40.0
+offset_bottom = 72.0
 
 [connection signal="ChangePickaxe" from="." to="player_model" method="_on_player_change_pickaxe"]
+[connection signal="update_ui_play" from="." to="PlayMenu" method="_on_player_update_ui_play"]
 [connection signal="anim_end" from="player_model" to="." method="_on_player_model_anim_end"]
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Hud/Control/PanelContainer/Shop" to="." method="_on_shop_pressed"]
+[connection signal="pressed" from="Hud/toSpawn" to="." method="_on_to_spawn_pressed"]
+[connection signal="pressed" from="Hud/PanelContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="success_buy" from="ShopGui" to="." method="_on_shop_gui_success_buy"]
+[connection signal="upgrade_level" from="PlayMenu" to="." method="_on_play_menu_upgrade_level"]

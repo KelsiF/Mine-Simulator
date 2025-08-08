@@ -1,8 +1,9 @@
-[gd_scene load_steps=33 format=4 uid="uid://de4bp8d5ki85v"]
+[gd_scene load_steps=34 format=4 uid="uid://de4bp8d5ki85v"]
 
 [ext_resource type="Script" uid="uid://eh82lpqwexfb" path="res://scripts/player_model.gd" id="1_73kw6"]
 [ext_resource type="Texture2D" uid="uid://cd4kcu3hcpbu3" path="res://models/player_0.png" id="1_fr7j6"]
 [ext_resource type="PackedScene" uid="uid://vd3quarcinge" path="res://scenes/pickaxe.tscn" id="2_cggpe"]
+[ext_resource type="PackedScene" uid="uid://cge7juo40kieg" path="res://scenes/torch.tscn" id="4_aw2h2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ejtkb"]
 resource_name = "material_0"
@@ -612,7 +613,7 @@ script = ExtResource("1_73kw6")
 [node name="Node" type="Node3D" parent="."]
 
 [node name="Head2" type="Node3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4375, 0)
 
 [node name="Head" type="MeshInstance3D" parent="Node/Head2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
@@ -625,7 +626,7 @@ mesh = SubResource("ArrayMesh_daxlg")
 skeleton = NodePath("")
 
 [node name="Body2" type="Node3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4375, 0)
 
 [node name="Body" type="MeshInstance3D" parent="Node/Body2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
@@ -638,7 +639,7 @@ mesh = SubResource("ArrayMesh_ayua5")
 skeleton = NodePath("")
 
 [node name="Right Arm2" type="Node3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3125, 1.375, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3125, 1.3125, 0)
 
 [node name="Right Arm" type="MeshInstance3D" parent="Node/Right Arm2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3125, -1.375, 0)
@@ -654,12 +655,15 @@ mesh = SubResource("ArrayMesh_todow")
 skeleton = NodePath("")
 
 [node name="Left Arm2" type="Node3D" parent="Node"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3125, 1.375, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3125, 1.3125, 0)
 
 [node name="Left Arm" type="MeshInstance3D" parent="Node/Left Arm2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3125, -1.375, 0)
 mesh = SubResource("ArrayMesh_atvgt")
 skeleton = NodePath("")
+
+[node name="Torch" parent="Node/Left Arm2/Left Arm" instance=ExtResource("4_aw2h2")]
+transform = Transform3D(0.607004, 0, 0, 0, -2.18557e-08, 0.592947, 0, -0.5, -2.59185e-08, -0.394748, 0.836053, -0.396445)
 
 [node name="Left Arm Layer" type="MeshInstance3D" parent="Node/Left Arm2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3125, -1.375, 0)
@@ -698,3 +702,4 @@ libraries = {
 }
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]

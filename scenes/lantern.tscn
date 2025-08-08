@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdfhofyksio3d"]
+
+[ext_resource type="ArrayMesh" uid="uid://de8b1ldynpkrd" path="res://models/meshes/market/lantern.res" id="1_hhuhv"]
+
+[node name="Lantern" type="Node3D"]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1.99999, 0.00580096, 0.00224396, -0.00579346, 1.99998, -0.00666033, -0.00226326, 0.0066538, 1.99999, -0.95275, 0, -1.01592)
+mesh = ExtResource("1_hhuhv")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00505589, 1.13759, 0.000456978)
+light_color = Color(1, 0.643137, 0.0823529, 1)
+light_energy = 3.815
+shadow_enabled = true
+shadow_normal_bias = 9.63
+distance_fade_begin = 92.51
+distance_fade_length = 430.1
+omni_range = 31.25

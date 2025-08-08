@@ -1,0 +1,101 @@
+[gd_scene load_steps=10 format=3 uid="uid://06lbss2xcwlk"]
+
+[ext_resource type="Texture2D" uid="uid://dshqgfp5yonls" path="res://textures/emtpy_shop_slot.png" id="1_30uw2"]
+[ext_resource type="Script" uid="uid://b2ftrd4atxcx4" path="res://scripts/shop_slot.gd" id="2_30uw2"]
+[ext_resource type="Texture2D" uid="uid://bi7hkbn4b4w6l" path="res://textures/emtpy_slot.png" id="3_uyc6o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uyc6o"]
+bg_color = Color(0.782804, 0.835987, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_30uw2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_30uw2"]
+bg_color = Color(0.368627, 0.470588, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ai61s"]
+bg_color = Color(0.368627, 0.470588, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+anti_aliasing = false
+anti_aliasing_size = 2.369
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjvrt"]
+bg_color = Color(0.368627, 0.470588, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Theme_vjvrt"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/styles/focus = SubResource("StyleBoxEmpty_30uw2")
+Button/styles/hover = SubResource("StyleBoxFlat_30uw2")
+Button/styles/normal = SubResource("StyleBoxFlat_ai61s")
+Button/styles/pressed = SubResource("StyleBoxFlat_vjvrt")
+
+[node name="ShopSlot" type="TextureRect"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 16.815)
+offset_right = 108.0
+offset_bottom = 108.0
+scale = Vector2(10.18, 10.18)
+texture = ExtResource("1_30uw2")
+script = ExtResource("2_30uw2")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 103.0
+offset_bottom = 105.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uyc6o")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+offset_right = 108.0
+offset_bottom = 108.0
+texture = ExtResource("3_uyc6o")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+offset_left = 12.0
+offset_top = 103.0
+offset_right = 93.0
+offset_bottom = 157.0
+theme = SubResource("Theme_vjvrt")
+text = "123123"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
